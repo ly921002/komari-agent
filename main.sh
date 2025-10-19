@@ -13,8 +13,6 @@ export TOKEN=${TOKEN:-"rP6F8lvOgWZXViUxnmDq1I"}
 # 默认证书文件（原命令中的 gcp.240713.xyz.crt）
 export SSL_CERT_FILE=${SSL_CERT_FILE:-"/app/certs/server.crt"}
 
-# Cloud Foundry 提供的端口
-export PORT=${PORT:-8080}
 # ==================================================
 # 参数验证
 # ==================================================
@@ -36,59 +34,6 @@ if [ ! -f "$SSL_CERT_FILE" ]; then
 fi
 
 # ==================================================
-# 启动 Web 服务器返回 "Hello world!"
-# ==================================================
-
-# 创建简单的 HTTP 服务器来响应根路由
-start_web_server() {
-    # 使用 Cloud Foundry 提供的 PORT 环境变量
-    local PORT=${PORT:-8080}
-    
-    # 创建响应文件
-    cat > /tmp/webserver.py << 'EOF'
-import http.server
-import socketserver
-import os
-import time
-
-class HelloWorldHandler(http.server.SimpleHTTPRequestHandler):
-    def do_GET(self):
-        if self.path == '/':
-            self.send_response(200)
-            self.send_header('Content-type', 'text/html; charset=utf-8')
-            self.end_headers()
-            self.wfile.write(b"Hello world!")
-        else:
-            self.send_response(404)
-            self.end_headers()
-            self.wfile.write(b"Not Found")
-
-if __name__ == "__main__":
-    port = int(os.getenv('PORT', '8080'))
-    print(f"Starting web server on port {port}")
-    
-    # 尝试启动服务器，最多重试3次
-    for attempt in range(3):
-        try:
-            with socketserver.TCPServer(("", port), HelloWorldHandler) as httpd:
-                print(f"Web server running on port {port}")
-                httpd.serve_forever()
-            break
-        except OSError as e:
-            if "Address already in use" in str(e):
-                print(f"Port {port} is already in use, retrying in 2 seconds...")
-                time.sleep(2)
-            else:
-                print(f"Error starting web server: {e}")
-                break
-EOF
-
-    # 在前台启动 Python Web 服务器
-    echo "Starting web server on port $PORT"
-    python3 /tmp/webserver.py
-}
-
-# ==================================================
 # 主程序执行
 # ==================================================
 
@@ -97,7 +42,6 @@ echo "Starting komari-agent with configuration:"
 echo "  - ENDPOINT:      $ENDPOINT"
 echo "  - TOKEN:         ${TOKEN:0:4}****${TOKEN: -4}"  # 只显示部分令牌，保护敏感信息
 echo "  - SSL_CERT_FILE: $SSL_CERT_FILE"
-echo "  - PORT:          $PORT"
 echo "======================================"
 
 # 使用环境变量运行命令
