@@ -13,6 +13,8 @@ export TOKEN=${TOKEN:-"rP6F8lvOgWZXViUxnmDq1I"}
 # 默认证书文件（原命令中的 gcp.240713.xyz.crt）
 export SSL_CERT_FILE=${SSL_CERT_FILE:-"/app/certs/server.crt"}
 
+# Cloud Foundry 提供的端口
+export PORT=${PORT:-8080}
 # ==================================================
 # 参数验证
 # ==================================================
@@ -39,8 +41,8 @@ fi
 
 # 创建简单的 HTTP 服务器来响应根路由
 start_web_server() {
-    # 获取端口，默认 8080
-    local PORT=${WEB_PORT:-8080}
+    # 使用 Cloud Foundry 提供的 PORT 环境变量
+    local PORT=${PORT:-8080}
     
     # 创建响应文件
     cat > /tmp/webserver.py << 'EOF'
@@ -61,7 +63,7 @@ class HelloWorldHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(b"Not Found")
 
 if __name__ == "__main__":
-    port = int(os.getenv('WEB_PORT', '8080'))
+    port = int(os.getenv('PORT', '8080'))
     with socketserver.TCPServer(("", port), HelloWorldHandler) as httpd:
         print(f"Web server running on port {port}")
         httpd.serve_forever()
@@ -84,6 +86,7 @@ echo "Starting komari-agent with configuration:"
 echo "  - ENDPOINT:      $ENDPOINT"
 echo "  - TOKEN:         ${TOKEN:0:4}****${TOKEN: -4}"  # 只显示部分令牌，保护敏感信息
 echo "  - SSL_CERT_FILE: $SSL_CERT_FILE"
+echo "  - PORT:          $PORT"
 echo "======================================"
 
 # 使用环境变量运行命令
