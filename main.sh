@@ -49,6 +49,7 @@ start_web_server() {
 import http.server
 import socketserver
 import os
+import time
 
 class HelloWorldHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
@@ -64,18 +65,28 @@ class HelloWorldHandler(http.server.SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     port = int(os.getenv('PORT', '8080'))
-    with socketserver.TCPServer(("", port), HelloWorldHandler) as httpd:
-        print(f"Web server running on port {port}")
-        httpd.serve_forever()
+    print(f"Starting web server on port {port}")
+    
+    # 尝试启动服务器，最多重试3次
+    for attempt in range(3):
+        try:
+            with socketserver.TCPServer(("", port), HelloWorldHandler) as httpd:
+                print(f"Web server running on port {port}")
+                httpd.serve_forever()
+            break
+        except OSError as e:
+            if "Address already in use" in str(e):
+                print(f"Port {port} is already in use, retrying in 2 seconds...")
+                time.sleep(2)
+            else:
+                print(f"Error starting web server: {e}")
+                break
 EOF
 
-    # 在后台启动 Python Web 服务器
-    python3 /tmp/webserver.py &
-    echo "Web server started on port $PORT, root route returns 'Hello world!'"
+    # 在前台启动 Python Web 服务器
+    echo "Starting web server on port $PORT"
+    python3 /tmp/webserver.py
 }
-
-# 启动 Web 服务器
-start_web_server
 
 # ==================================================
 # 主程序执行
