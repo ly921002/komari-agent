@@ -34,6 +34,48 @@ if [ ! -f "$SSL_CERT_FILE" ]; then
 fi
 
 # ==================================================
+# 启动 Web 服务器返回 "Hello world!"
+# ==================================================
+
+# 创建简单的 HTTP 服务器来响应根路由
+start_web_server() {
+    # 获取端口，默认 8080
+    local PORT=${WEB_PORT:-8080}
+    
+    # 创建响应文件
+    cat > /tmp/webserver.py << 'EOF'
+import http.server
+import socketserver
+import os
+
+class HelloWorldHandler(http.server.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == '/':
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html; charset=utf-8')
+            self.end_headers()
+            self.wfile.write(b"Hello world!")
+        else:
+            self.send_response(404)
+            self.end_headers()
+            self.wfile.write(b"Not Found")
+
+if __name__ == "__main__":
+    port = int(os.getenv('WEB_PORT', '8080'))
+    with socketserver.TCPServer(("", port), HelloWorldHandler) as httpd:
+        print(f"Web server running on port {port}")
+        httpd.serve_forever()
+EOF
+
+    # 在后台启动 Python Web 服务器
+    python3 /tmp/webserver.py &
+    echo "Web server started on port $PORT, root route returns 'Hello world!'"
+}
+
+# 启动 Web 服务器
+start_web_server
+
+# ==================================================
 # 主程序执行
 # ==================================================
 
