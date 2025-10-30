@@ -14,10 +14,6 @@ RUN chmod +x komari-agent
 COPY main.sh .
 RUN chmod +x main.sh
 
-# 复制证书文件
-RUN mkdir -p /app/certs
-COPY gcp.240713.xyz.crt /app/certs/server.crt
-
 # 创建日志目录
 RUN mkdir -p /var/log
 
@@ -30,7 +26,6 @@ RUN echo "验证文件权限:" && \
 # 设置环境变量
 ENV ENDPOINT="https://gcp.240713.xyz" \
     TOKEN="rP6F8lvOgWZXViUxnmDq1I" \
-    SSL_CERT_FILE="/app/certs/server.crt"
 
 # 使用shell形式确保执行
 CMD ["/bin/bash", "./main.sh"]
