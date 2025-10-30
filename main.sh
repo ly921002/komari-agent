@@ -10,9 +10,6 @@ export ENDPOINT=${ENDPOINT:-"https://gcp.240713.xyz"}
 # 默认令牌（原命令中的 rP6F8lvOgWZXViUxnmDq1I）
 export TOKEN=${TOKEN:-"rP6F8lvOgWZXViUxnmDq1I"}
 
-# 默认证书文件（原命令中的 gcp.240713.xyz.crt）
-export SSL_CERT_FILE=${SSL_CERT_FILE:-"/app/certs/server.crt"}
-
 # ==================================================
 # 参数验证
 # ==================================================
@@ -28,11 +25,6 @@ if [ -z "$TOKEN" ]; then
     exit 1
 fi
 
-if [ ! -f "$SSL_CERT_FILE" ]; then
-    echo "WARNING: SSL certificate file $SSL_CERT_FILE not found" >&2
-    # 不退出，因为某些环境可能不需要证书
-fi
-
 # ==================================================
 # 主程序执行
 # ==================================================
@@ -41,11 +33,10 @@ echo "======================================"
 echo "Starting komari-agent with configuration:"
 echo "  - ENDPOINT:      $ENDPOINT"
 echo "  - TOKEN:         ${TOKEN:0:4}****${TOKEN: -4}"  # 只显示部分令牌，保护敏感信息
-echo "  - SSL_CERT_FILE: $SSL_CERT_FILE"
 echo "======================================"
 
 # 使用环境变量运行命令
-SSL_CERT_FILE="$SSL_CERT_FILE" nohup ./komari-agent \
+nohup ./komari-agent \
     -e "$ENDPOINT" \
     -t "$TOKEN" \
     > /var/log/komari-agent.log 2>&1 &
