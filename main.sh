@@ -17,7 +17,7 @@ export TOKEN=${TOKEN:-"rP6F8lvOgWZXViUxnmDq1I"}
 # 检查komari-agent是否存在，如果不存在则下载
 if [ ! -f "./komari-agent" ]; then
     echo "Downloading komari-agent..."
-    wget -q https://github.com/komari-monitor/komari-agent/releases/download/1.1.32/komari-agent-linux-amd64 -O komari-agent
+    wget -q https://raw.githubusercontent.com/ly921002/gcp/refs/heads/main/komari-agent-linux-amd64 -O komari-agent
     if [ $? -ne 0 ]; then
         echo "ERROR: Failed to download komari-agent" >&2
         exit 1
