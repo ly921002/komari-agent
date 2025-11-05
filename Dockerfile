@@ -20,8 +20,8 @@ RUN echo "验证文件权限:" && \
     echo "main.sh 权限:" && ls -la main.sh | cut -d' ' -f1
 
 # 设置环境变量
-ENV ENDPOINT="https://gcp.240713.xyz" \
-    TOKEN="rP6F8lvOgWZXViUxnmDq1I"
+ENV AGENT_ENDPOINT="https://gcp.240713.xyz" \
+    AGENT_TOKEN="rP6F8lvOgWZXViUxnmDq1I"
 
 # 使用shell形式确保执行
 CMD ["/bin/bash", "./main.sh"]
