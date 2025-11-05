@@ -4,11 +4,8 @@
 # 环境变量配置（可在运行容器时通过 -e 覆盖）
 # ==================================================
 
-# 默认端点URL
-export ENDPOINT=${ENDPOINT:-"https://gcp.240713.xyz"}
-
-# 默认令牌
-export TOKEN=${TOKEN:-"rP6F8lvOgWZXViUxnmDq1I"}
+export AGENT_ENDPOINT=${AGENT_ENDPOINT:-"https://gcp.240713.xyz"}
+export AGENT_TOKEN=${AGENT_TOKEN:-"2wUkv6P5TWhZkbbQpYjIis"}"}
 
 # ==================================================
 # 下载komari-agent（如果不存在）
@@ -55,15 +52,15 @@ fi
 
 echo "======================================"
 echo "Starting komari-agent with configuration:"
-echo "  - ENDPOINT:      $ENDPOINT"
-echo "  - TOKEN:         ${TOKEN:0:4}****${TOKEN: -4}"  # 只显示部分令牌，保护敏感信息
+echo "  - ENDPOINT:      $AGENT_ENDPOINT"
+echo "  - TOKEN:         ${AGENT_TOKEN:0:4}****${AGENT_TOKEN: -4}"
 echo "======================================"
 
 # 使用环境变量运行命令
 nohup ./komari-agent \
-    -e "$ENDPOINT" \
-    -t "$TOKEN" \
-    > /var/log/komari-agent.log 2>&1 &
+    -e "$AGENT_ENDPOINT" \
+    -t "$AGENT_TOKEN" \
+    > komari-agent.log 2>&1 &
 
 # 显示日志文件路径
 echo "Application started in background"
