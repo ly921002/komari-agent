@@ -30,12 +30,12 @@ fi
 # ==================================================
 
 # 检查必需变量
-if [ -z "$ENDPOINT" ]; then
+if [ -z "$AGENT_ENDPOINT" ]; then
     echo "ERROR: ENDPOINT environment variable is required" >&2
     exit 1
 fi
 
-if [ -z "$TOKEN" ]; then
+if [ -z "$AGENT_TOKEN" ]; then
     echo "ERROR: TOKEN environment variable is required" >&2
     exit 1
 fi
@@ -52,8 +52,8 @@ fi
 
 echo "======================================"
 echo "Starting komari-agent with configuration:"
-echo "  - ENDPOINT:      $AGENT_ENDPOINT"
-echo "  - TOKEN:         ${AGENT_TOKEN:0:4}****${AGENT_TOKEN: -4}"
+echo "  - AGENT_ENDPOINT:      $AGENT_ENDPOINT"
+echo "  - AGENT_TOKEN:         ${AGENT_TOKEN:0:4}****${AGENT_TOKEN: -4}"
 echo "======================================"
 
 # 使用环境变量运行命令
