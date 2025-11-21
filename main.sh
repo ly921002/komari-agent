@@ -5,7 +5,7 @@
 # ==================================================
 
 export AGENT_ENDPOINT=${AGENT_ENDPOINT:-"https://gcp.240713.xyz"}
-export AGENT_TOKEN=${AGENT_TOKEN:-"2wUkv6P5TWhZkbbQpYjIis"}
+export AGENT_TOKEN=${AGENT_TOKEN:-""}
 
 # ==================================================
 # 系统架构检测
