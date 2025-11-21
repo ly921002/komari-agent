@@ -21,7 +21,7 @@ RUN echo "验证文件权限:" && \
 
 # 设置环境变量
 ENV AGENT_ENDPOINT="https://gcp.240713.xyz" \
-    AGENT_TOKEN="rP6F8lvOgWZXViUxnmDq1I"
+    AGENT_TOKEN=""
 
 # 使用shell形式确保执行
 CMD ["/bin/bash", "./main.sh"]
