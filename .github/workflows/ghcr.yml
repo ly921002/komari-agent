@@ -3,7 +3,11 @@ name: Build and Push to GHCR
 on:
   push:
     branches: [main]
-    tags: ['v*']  # 可选：当打标签时触发
+    paths:
+      - 'Dockerfile'
+      - 'main.sh'
+  pull_request:
+    branches: [main]
 
 jobs:
   build-and-push:
