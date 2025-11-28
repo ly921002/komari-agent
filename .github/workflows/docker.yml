@@ -3,6 +3,9 @@ name: Docker Build & Push
 on:
   push:
     branches: [main]
+    paths:
+      - 'Dockerfile'
+      - 'main.sh'
   pull_request:
     branches: [main]
 
