@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euo pipefail
+set -euo pipefail 
 
 # =============================
 # 环境变量（可通过 -e 覆盖）
