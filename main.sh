@@ -6,7 +6,7 @@ set -euo pipefail
 # =============================
 AGENT_ENDPOINT="${AGENT_ENDPOINT:-https://gcp.240713.xyz}"
 AGENT_TOKEN="${AGENT_TOKEN:-}"
-
+KOMARI_VERSION="${KOMARI_VERSION:-1.1.40}"
 # =============================
 # 辅助函数
 # =============================
@@ -64,8 +64,8 @@ fi
 # =============================
 # 下载 komari-agent（如缺失）
 # =============================
-AGENT_BINARY="./komari-agent"
-DOWNLOAD_URL="https://raw.githubusercontent.com/ly921002/gcp/refs/heads/main/komari-agent-linux-${ARCH_SUFFIX}"
+AGENT_BINARY="./komari-agent" 
+DOWNLOAD_URL="https://github.com/komari-monitor/komari-agent/releases/download/${KOMARI_VERSION}/komari-agent-linux-${ARCH_SUFFIX}"
 
 if [[ ! -x "$AGENT_BINARY" ]]; then
     log "komari-agent not found, downloading..."
@@ -82,6 +82,7 @@ log "Starting komari-agent"
 log "  Architecture:       $ARCH_SUFFIX"
 log "  AGENT_ENDPOINT:     $AGENT_ENDPOINT"
 log "  AGENT_TOKEN:        ${AGENT_TOKEN:0:4}****${AGENT_TOKEN: -4}"
+log "  AGENT_VERSION:      $KOMARI_VERSION"
 log "======================================"
 
 exec "$AGENT_BINARY" \
