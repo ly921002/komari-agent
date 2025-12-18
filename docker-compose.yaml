@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  gcp-agent:
+    image: ly920907/gcp-agent:latest
+    container_name: gcp-agent
+    restart: always
+    network_mode: host     # 使用宿主机网络
+    environment:
+      TZ: Asia/Shanghai
+      AGENT_ENDPOINT: https://AGENT_ENDPOINT
+      AGENT_TOKEN: 
+      KOMARI_VERSION: 1.1.40
+      
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
