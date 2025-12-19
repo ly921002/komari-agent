@@ -64,7 +64,7 @@ fi
 # 下载 komari-agent（如缺失）
 # =============================
 AGENT_BINARY="./komari-agent" 
-DOWNLOAD_URL="https://download.lycn.qzz.io/${fileName}/komari-agent-linux-${ARCH_SUFFIX}"
+DOWNLOAD_URL="https://download.lycn.qzz.io/komari-agent-linux-${ARCH_SUFFIX}"
 
 if [[ ! -x "$AGENT_BINARY" ]]; then
     log "komari-agent not found, downloading..."
