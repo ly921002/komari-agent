@@ -7,10 +7,8 @@ services:
     restart: always
     network_mode: host     # 使用宿主机网络
     environment:
-      TZ: Asia/Shanghai
       AGENT_ENDPOINT: https://AGENT_ENDPOINT
       AGENT_TOKEN: 
-      KOMARI_VERSION: 1.1.40
       
     logging:
       driver: "json-file"
