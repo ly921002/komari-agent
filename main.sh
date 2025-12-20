@@ -5,7 +5,7 @@ set -euo pipefail
 # 环境变量（可通过 -e 覆盖）
 # =============================
 AGENT_ENDPOINT="${AGENT_ENDPOINT:-https://gcp.240713.xyz}"
-AGENT_TOKEN="${AGENT_TOKEN:-}"
+AGENT_TOKEN="${AGENT_TOKEN:-}" 
 # =============================
 # 辅助函数
 # =============================
