@@ -2,8 +2,8 @@ version: "3.8"
 
 services:
   gcp-agent:
-    image: ly920907/gcp-agent:latest
-    container_name: gcp-agent
+    image: ly920907/komari-agent:latest
+    container_name: komari-agent
     restart: always
     network_mode: host     # 使用宿主机网络
     environment:
