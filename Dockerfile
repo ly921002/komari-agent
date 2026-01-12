@@ -20,7 +20,7 @@ RUN echo "验证文件权限:" && \
     echo "main.sh 权限:" && ls -la main.sh | cut -d' ' -f1
 
 # 设置环境变量
-ENV AGENT_ENDPOINT="https://gcp.240713.xyz" \
+ENV AGENT_ENDPOINT="" \
     AGENT_TOKEN=""
 
 # 使用shell形式确保执行
