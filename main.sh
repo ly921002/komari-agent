@@ -85,5 +85,5 @@ log "======================================"
 
 exec "$AGENT_BINARY" \
     -e "$AGENT_ENDPOINT" \
-    -t "$AGENT_TOKEN" \
-    --disable-auto-update
+    -t "$AGENT_TOKEN" #\
+    #--disable-auto-update
