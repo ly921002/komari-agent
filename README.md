@@ -18,6 +18,7 @@
 
 ```bash
 docker pull ly920907/komari-agent:latest
+```
 
 # 🚀 快速开始
 
@@ -30,7 +31,7 @@ docker run -d \
   -e AGENT_ENDPOINT=https://你的面板地址 \
   -e AGENT_TOKEN=你的TOKEN \
   ly920907/komari-agent:latest
-
+```
 
 方式二：docker-compose（推荐）
 ```yaml
@@ -50,11 +51,12 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+```
 
 启动：
 ```bash
 docker compose up -d
-
+```
 
 # ⚙️ 环境变量说明
 
