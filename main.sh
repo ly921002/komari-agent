@@ -85,5 +85,6 @@ log "======================================"
 
 exec "$AGENT_BINARY" \
     -e "$AGENT_ENDPOINT" \
-    -t "$AGENT_TOKEN" #\
+    -t "$AGENT_TOKEN" \
+    --disable-web-ssh
     #--disable-auto-update
