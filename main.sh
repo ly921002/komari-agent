@@ -75,6 +75,6 @@ log "======================================"
 exec "$AGENT_BINARY" \
     -e "$AGENT_ENDPOINT" \
     -t "$AGENT_TOKEN" \
-    --auto-discovery "$TOKEN"
+    --auto-discovery "$TOKEN" \
     --disable-web-ssh
     #--disable-auto-update
